@@ -1,17 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import App from './components/App';
 import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+
+const Books = [
+  {id:1, name:"book 1", image:"none", page:"7", isComplete:true, isTrash:false},
+  {id:2, name:"book 2", image:"none", page:"7", isComplete:false, isTrash:false},
+  {id:3, name:"book 3", image:"none", page:"7", isComplete:true, isTrash:false},
+];
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+  <App Books={Books}/>,
+  document.getElementById("root")
 );
-
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
