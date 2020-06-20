@@ -3,6 +3,7 @@ import "../index.css";
 //import {FaPlus} from "react-icons/fa";
 import styled from 'styled-components';
 
+
 function AddBook(){
     return (
         <BoxAdd>
@@ -10,7 +11,7 @@ function AddBook(){
             <Add type="text" />
             <label>Tác giả: </label>
             <Add type="text" />
-            <label>năm xuất bản: </label>
+            <label>Năm xuất bản: </label>
             <Add type="text" />
             <label>Link sách: </label>
             <Add type="text" />
@@ -27,7 +28,7 @@ const BoxAdd = styled.div`
 `;
 const Add = styled.input`
     display:block;
-    width:40%;
+    width:100%;
     padding:.375rem .75rem;
     font-size:1rem;
     line-height:1.5;
