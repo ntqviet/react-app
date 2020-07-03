@@ -1,29 +1,51 @@
-import React from 'react';
+import React, {Component} from 'react';
 import "../index.css";
 //import {FaPlus} from "react-icons/fa";
 import styled from 'styled-components';
 
 
-function AddBook(){
-    return (
-        <BoxAdd>
-            <label>Tên sách: </label>
-            <Add type="text" />
-            <label>Tác giả: </label>
-            <Add type="text" />
-            <label>Năm xuất bản: </label>
-            <Add type="text" />
-            <label>Link sách: </label>
-            <Add type="text" />
-            <label>Ảnh bìa: </label>
-            <Add type="file" /> 
-            <BtnAdd>OK</BtnAdd>
-            <BtnCancel>Cancel</BtnCancel>
-        </BoxAdd>
-    )
+class AddBook extends Component{
+    textname = React.createRef();
+    textauthor = React.createRef();
+    textyear = React.createRef();
+    textpage = React.createRef();
+    handleAddBook=()=>{
+        if(this.textname.current.value !==""){
+            this.props.addBook(this.textname.current.value);
+            this.textname.current.value="";
+        }
+        if(this.textauthor.current.value !==""){
+            this.props.addBook(this.textauthor.current.value);
+            this.textauthor.current.value="";
+        }
+        if(this.textyear.current.value !==""){
+            this.props.addBook(this.textyear.current.value);
+            this.textyear.current.value="";
+        }
+        if(this.textpage.current.value !==""){
+            this.props.addBook(this.textpage.current.value);
+            this.textpage.current.value="";
+        }
+    }
+    render(){
+        return (
+            <BoxAdd>
+                <label>Tên sách: </label>
+                <Add type="text" placeholder="Nhập tên sách" id="name" ref={this.textname}/>
+                <label>Tác giả: </label>
+                <Add type="text" placeholder="Nhập tên tác giả" id="author" ref={this.textauthor}/>
+                <label>Năm xuất bản: </label>
+                <Add type="text" placeholder="Nhập năm xuất bản" id="year" ref={this.textyear}/>
+                <label>Tổng số trang: </label>
+                <Add type="text" placeholder="Nhập số trang sách" id="page" ref={this.textpage}/>
+                <BtnAdd type="sunbit" onClick={this.handleAddBook}>OK</BtnAdd>
+                <BtnCancel>Cancel</BtnCancel>
+            </BoxAdd>
+        )
+    }
 }
 export default AddBook;
-const BoxAdd = styled.div`
+const BoxAdd = styled.form`
     padding:10px;
 `;
 const Add = styled.input`

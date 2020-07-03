@@ -13,6 +13,8 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import {Redirect} from 'react-router-dom'
+import { fakeAuth } from "../Auth/Auth";
+
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -33,17 +35,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const fakeAuth = {
-  isAuthenticated: false,
-  authenticate(cb) {
-    this.isAuthenticated = true
-    setTimeout(cb, 100) // fake async
-  },
-  signout(cb) {
-    this.isAuthenticated = false
-    setTimeout(cb, 100) // fake async
-  }
-}
+
 
 export class SignIn extends React.Component {
   state = {
@@ -57,7 +49,7 @@ export class SignIn extends React.Component {
     })
   }
   render() {
-    const classes = useStyles();
+    // const classes = useStyles();
     const { from } = this.props.location.state || { from: { pathname: '/' } }
     const { redirectToReferrer } = this.state
 
@@ -68,18 +60,18 @@ export class SignIn extends React.Component {
     return (
       // <div>
       //   <p>You must log in to view the page</p>
-      //   <button onClick={this.login}>Log in</button>
+        // <button onClick={this.login}>Log in</button>
       // </div>
       <Container component="main" maxWidth="xs">
       <CssBaseline />
-      <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
+      <div>
+        <Avatar>
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
           Đăng nhập
         </Typography>
-        <form className={classes.form} noValidate>
+        <form noValidate>
           <TextField
             variant="outlined"
             margin="normal"
@@ -107,12 +99,11 @@ export class SignIn extends React.Component {
             label="Remember me"
           />
           <Button
-            type="submit"
+            // type="submit"
             fullWidth
             variant="contained"
             color="primary"
-            className={classes.submit}
-            onClick={this.signin}
+            onClick={this.login}
           >
             Đăng nhập
           </Button>
@@ -129,80 +120,4 @@ export class SignIn extends React.Component {
     )
   }
 }
-
 export default SignIn;
-
-// export default class SignIn extends React.component{
-// state = {
-//   redirectToReferrer: false
-// }
-
-// signin = () => {
-//   const classes = useStyles();
-
-//   fakeAuth.authenticate(() => {
-//     this.setState(() => ({
-//       redirectToReferrer: true
-//     }))
-//   })
-
-//   return (
-//     <Container component="main" maxWidth="xs">
-//       <CssBaseline />
-//       <div className={classes.paper}>
-//         <Avatar className={classes.avatar}>
-//           <LockOutlinedIcon />
-//         </Avatar>
-//         <Typography component="h1" variant="h5">
-//           Đăng nhập
-//         </Typography>
-//         <form className={classes.form} noValidate>
-//           <TextField
-//             variant="outlined"
-//             margin="normal"
-//             required
-//             fullWidth
-//             id="userName"
-//             label="Tài khoản"
-//             name="userName"
-//             autoComplete="uname"
-//             autoFocus
-//           />
-//           <TextField
-//             variant="outlined"
-//             margin="normal"
-//             required
-//             fullWidth
-//             name="Mật khẩu"
-//             label="Mật khẩu"
-//             type="password"
-//             id="password"
-//             autoComplete="current-password"
-//           />
-//           <FormControlLabel
-//             control={<Checkbox value="remember" color="primary" />}
-//             label="Remember me"
-//           />
-//           <Button
-//             type="submit"
-//             fullWidth
-//             variant="contained"
-//             color="primary"
-//             className={classes.submit}
-//             onClick={this.signin}
-//           >
-//             Đăng nhập
-//           </Button>
-//           <Grid container>
-//             <Grid item>
-//               <Link href="SignUp" variant="body2">
-//                 {"Không có tài khoản ? Đăng ký ngay"}
-//               </Link>
-//             </Grid>
-//           </Grid>
-//         </form>
-//       </div>
-//     </Container>
-//   );
-// }
-// }

@@ -1,14 +1,60 @@
 import React from 'react';
 import styled from 'styled-components';
-import {FaCheck, FaUndo, FaTrash} from 'react-icons/fa';
-
+import {FaCheck, FaUndo, FaTrash, FaEdit} from 'react-icons/fa';
 
 class Content extends React.Component {
+    state={
+        editTing: false,
+        nameEdit: this.props.Book.name,
+        authorEdit: this.props.Book.author,
+        yearEdit: this.props.Book.year,
+        pageEdit: this.props.Book.page,
+    }
     checkBook = () => {
         this.props.setBook(this.props.Book.id);
     }
     deleteBook = () => {
         this.props.deleteBook(this.props.Book.id);
+    }
+    editBook = () => {
+        this.setState({editTing:true});
+    }
+    changeEditName = () =>{
+        this.setState({
+            nameEdit: this.refs.textname.value
+        })
+    }
+    changeEditAuthor = () =>{
+        this.setState({
+            authorEdit: this.refs.textauthor.value
+        })
+    }
+    changeEditYear = () =>{
+        this.setState({
+            yearEdit: this.refs.textyear.value
+        })
+    }
+    changeEditPage = () =>{
+        this.setState({
+            pageEdit: this.refs.textpage.value
+        })
+    }
+    EditBook = () =>{
+        this.setState({
+            editTing:false,
+            nameEdit: this.refs.textname.value,
+            authorEdit: this.refs.textauthor.value,
+            yearEdit: this.refs.textyear.value,
+            pageEdit: this.refs.textpage.value
+        })
+    }
+    onBlurEdit = () =>{
+        this.EditBook();
+    }
+    onEnter = (event) =>{
+        if(event.key === "Enter"){
+            this.EditBook();
+        }
     }
     render() {
         
@@ -17,11 +63,29 @@ class Content extends React.Component {
         return (
            <>
             <Item>
-                <ContentImage>{ListBooks.image}</ContentImage>
-                <ContentName>Tên sách: {ListBooks.name}</ContentName>
-                <ContentName>Trang đang đọc: {ListBooks.page}</ContentName>
+                {!this.state.editTing ? <ContentName>{this.state.nameEdit} Tên sách: {ListBooks.name}</ContentName>
+                :
+                <TextEdit ref='textname' 
+                    value={this.state.nameEdit} 
+                    onChange={this.changeEditName} 
+                    onBlur={this.onBlurEdit} 
+                    onKeyPress={this.onEnter}
+                />
+                }
+                {!this.state.editTing ? <ContentName>{this.state.authorEdit} Tác giả: {ListBooks.author}</ContentName>
+                :
+                <TextEdit ref='textauthor' 
+                    value={this.state.authorEdit} 
+                    onChange={this.changeEditAuthor} 
+                    onBlur={this.onBlurEdit} 
+                    onKeyPress={this.onEnter}
+                />
+                }
+                <Check onClick={this.editBook}>
+                    <FaEdit />
+                </Check>
                 <Check onClick={this.checkBook}>
-                        {this.props.primary ? <FaCheck /> : <FaUndo />}
+                    {this.props.primary ? <FaCheck /> : <FaUndo />}
                 </Check>
                 <Check warning onClick={this.deleteBook}>
                     <FaTrash />
@@ -42,9 +106,7 @@ const Item = styled.div `
     line-height:7rem;
     margin-bottom:5px;
     display:grid;
-    grid-template-columns: 2fr 3fr 3fr 1fr 1fr;
-`;
-const ContentImage = styled.div`
+    grid-template-columns: 4.5fr 4fr 0.5fr 0.5fr 0.5fr;
 `;
 const ContentName = styled.label ` 
     color:#000;
@@ -54,4 +116,7 @@ const Check = styled.button`
    font-size:25px;
 
    color: ${props => props.warning ? "red" : "#2EFE2E"}
+`;
+const TextEdit = styled.textarea`
+width:100%;
 `;

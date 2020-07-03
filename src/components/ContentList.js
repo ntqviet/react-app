@@ -12,6 +12,7 @@ const ContentList = (props) => {
                     key={Book.id}
                     Book={Book} 
                     primary={props.primary}
+                    editBook={props.editBook}
                     setBook={props.setBook}
                     deleteBook={props.deleteBook}
                     />
